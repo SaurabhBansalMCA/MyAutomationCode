@@ -82,6 +82,7 @@ public class AssesmentJira extends Utilities{
 		sendText(driver, PROP.getProperty("userName"),PROP.getProperty("name"));
 		sendText(driver, PROP.getProperty("password"),PROP.getProperty("pwd"));
 		click(driver, PROP.getProperty("login"));
+		APPLICATION_LOG.debug("Entered Login Credentials");
 		Thread.sleep(40000);
 		
 		APPLICATION_LOG.debug("***********************************************");
@@ -104,11 +105,15 @@ public class AssesmentJira extends Utilities{
 		WebElement tickets = driver.findElement(By.xpath(PROP.getProperty("leftpaneofticket")));
 		
 		APPLICATION_LOG.debug("TOTAL TICKETS = " + tickets.findElements(By.tagName("li")).size());
+		APPLICATION_LOG.debug("******************************************");
 
 		for(int ticket = 1 ; ticket <= tickets.findElements(By.tagName("li")).size() ; ticket++){
+			APPLICATION_LOG.debug("------------------------------------------------");
 			ticketNumber = tickets.findElement(By.xpath(PROP.getProperty("leftpaneofticket")+"/li["+ticket+"]")).getAttribute("data-key");
 			
 			//CLICK ON TICKET
+			
+			APPLICATION_LOG.debug("Clicked on Ticket = " + ticketNumber);
 			
 			tickets.findElement(By.xpath(PROP.getProperty("leftpaneofticket")+"/li["+ticket+"]")).click();
 			Thread.sleep(20000);
@@ -118,6 +123,7 @@ public class AssesmentJira extends Utilities{
 			for(int vendor = 1 ; vendor <= elementSize(driver, PROP.getProperty("datepanel")) ; vendor++){
 				if(getText(driver, PROP.getProperty("datepanel")+"["+vendor+"]/dt").contains("Due")){
 					ticketDueDate.put(ticketNumber, getText(driver, PROP.getProperty("datepanel")+"["+vendor+"]/dd"));
+					APPLICATION_LOG.debug("Ticket due Date= " + getText(driver, PROP.getProperty("datepanel")+"["+vendor+"]/dd"));
 				}
 			}
 		
@@ -125,6 +131,7 @@ public class AssesmentJira extends Utilities{
 				if(elementSize(driver, PROP.getProperty("comment")) == vendor){
 				
 					ticketComment.put(ticketNumber, getText(driver, PROP.getProperty("comment")+"["+vendor+"]"));
+					APPLICATION_LOG.debug("Ticket Comment = " + getText(driver, PROP.getProperty("comment")+"["+vendor+"]"));
 				}
 			}
 
@@ -144,15 +151,13 @@ public class AssesmentJira extends Utilities{
 		APPLICATION_LOG.debug("***********************************************");
 		
 		for(String key : ticketDownload.keySet()){
-			APPLICATION_LOG.debug("s = " + key);
-			for (List<Object> row : values){
-				APPLICATION_LOG.debug(row.size());
-		        if(!row.get(0).toString().contains(key) && key.startsWith("DIG")){
-		        	APPLICATION_LOG.debug(row.get(0).toString());
+			//APPLICATION_LOG.debug("s = " + key);
+
+		        if(!values.toString().contains(key) && key.startsWith("DIG")){
+		        	//APPLICATION_LOG.debug("Key " + key);
 		        	windowCommandRunJira("wget -O "+ INPUT_FOLDER_PATH + key+".zip --no-check-certificate "+ticketDownload.get(key)+"");
 		        	APPLICATION_LOG.debug(key + " has been downloaded");
 		        }
-			}
 		}
 		
 		APPLICATION_LOG.debug("Downloading Completed");
@@ -212,7 +217,7 @@ public class AssesmentJira extends Utilities{
 				OUTPUT_FOLDER_PATH = null;
 				FILE_LIST = filesInDirectories(INPUT_FOLDER_PATH,".pdf","Yes","No","All","NULL","NULL");
 				if(FILE_LIST.get(0).size()==0)
-					System.out.println("There is no PDF file");
+					APPLICATION_LOG.debug("There is no PDF file");
 				else{
 					for(int i=0 ; i < FILE_LIST.get(0).size() ; i++){
 						folderName = FILE_LIST.get(4).get(i);
@@ -220,6 +225,7 @@ public class AssesmentJira extends Utilities{
 						folderName = folderName.substring(folderName.lastIndexOf("\\") + 1);
 						if(folderCreation(FILE_LIST.get(4).get(i), folderName+"_XML")){}
 						String data = textExtractionFromPdf(FILE_LIST.get(0).get(i));
+						//APPLICATION_LOG.debug("Location = " + OUTPUT_FOLDER_PATH);
 						writeText(OUTPUT_FOLDER_PATH+"\\"+FILE_LIST.get(1).get(i).split("\\.")[0]+".xml", data);
 						APPLICATION_LOG.debug(OUTPUT_FOLDER_PATH+"\\"+FILE_LIST.get(1).get(i).split("\\.")[0]+".xml");
 						}

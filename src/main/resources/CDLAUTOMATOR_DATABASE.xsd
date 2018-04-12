@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="cdlautomator">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="projects"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="projects">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="project"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="project">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="functionname"/>
+        <xs:element ref="argumenttype"/>
+        <xs:element ref="comment"/>
+        <xs:element ref="date"/>
+        <xs:element ref="developedby"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="functionname" type="xs:NCName"/>
+  <xs:element name="argumenttype" type="xs:string"/>
+  <xs:element name="comment" type="xs:NCName"/>
+  <xs:element name="date" type="xs:string"/>
+  <xs:element name="developedby" type="xs:NCName"/>
+</xs:schema>

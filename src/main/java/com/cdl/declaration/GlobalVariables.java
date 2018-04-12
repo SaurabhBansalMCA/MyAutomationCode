@@ -68,7 +68,7 @@ public class GlobalVariables {
     public static final String PROPERTYFILE_PATH = "input.properties";
     public static final String OFFICETOPDF_PATH = "OfficeToPDF.exe";
     public static String GECKODRIVER_PATH = "geckodriver.exe";
-    public static final String RANGE = "Tickets!A:B";
+    public static final String RANGE = "TicketsInPipeline!A:B";
     public static InputStream xml_is = classloader.getResourceAsStream(XML_PATH);
     public static InputStream gecko_is = classloader.getResourceAsStream(GECKODRIVER_PATH);
     public static InputStream xsd_is = classloader.getResourceAsStream(XSD_PATH);
