@@ -33,7 +33,8 @@ public class AssesmentJira extends Utilities{
     	hs.clear();
     	csvData = CSV_Reader(CSV_PATH, ",",csv_is);
       	Set<String> keys = csvData.keySet();
-      	INPUT_FOLDER_PATH = "C:/Users/cdluser/Desktop/Script/Tickets/"+todayDate()+"/";
+      	//INPUT_FOLDER_PATH = "C:/Users/cdluser/Desktop/Script/Tickets/"+todayDate()+"/";
+      	INPUT_FOLDER_PATH = "\\"+"\\192.168.100.7\\ebsco\\Assessment\\Data\\"+todayDate()+"\\";
       	FILE = new File(INPUT_FOLDER_PATH);
       	
       	if(FILE.exists()){
@@ -295,6 +296,7 @@ public class AssesmentJira extends Utilities{
 			File f = new File("C:/Users/cdluser/Desktop/Script/Log/LOGGER.log");
 			f.delete();
 		    print(SUCCESS_MESSAGE);
+		    System.exit(0);
 				
 				//driver.close();
 
