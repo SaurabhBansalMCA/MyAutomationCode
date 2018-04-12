@@ -147,7 +147,7 @@ public class AssesmentJira extends Utilities{
 			APPLICATION_LOG.debug("s = " + key);
 			for (List<Object> row : values){
 				APPLICATION_LOG.debug(row.size());
-		        if(!row.get(0).toString().equals(key) && key.startsWith("DIG")){
+		        if(!row.get(0).toString().contains(key) && key.startsWith("DIG")){
 		        	APPLICATION_LOG.debug(row.get(0).toString());
 		        	windowCommandRunJira("wget -O "+ INPUT_FOLDER_PATH + key+".zip --no-check-certificate "+ticketDownload.get(key)+"");
 		        	APPLICATION_LOG.debug(key + " has been downloaded");
