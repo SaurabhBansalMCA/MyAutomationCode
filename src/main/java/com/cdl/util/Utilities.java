@@ -7,10 +7,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -910,4 +912,165 @@ public static List<String> readDocFile(String fileName) {
 
     }
     }
+    
+    
+    
+    //Arun
+    
+    public static List<File> getFileNames(String location) {
+        File directoryName = new File(location);
+        File[] fileList = directoryName.listFiles();
+        List<File> resultSet = new ArrayList<File>();
+        
+        for (File file : fileList) {
+        	if (file.isFile())
+                resultSet.add(file.getAbsoluteFile());
+            else if (file.isDirectory()){
+            	if(file.getName().equalsIgnoreCase("DuplicateXMLs")){}
+            	 else {
+                resultSet.addAll(getFileNames(file.getAbsolutePath()));
+            	 }
+            }
+        }    
+        return resultSet;
+    }
+    
+	public  static void figHR(String location) throws IOException{
+		
+		location = location+"/";
+
+		
+		List<File> helpfiles = getFileNames(location);
+    	for(File file2 : helpfiles)
+    	{
+
+			String fileNameOfHelpxml = file2.getName();
+			String fileNameSplit= fileNameOfHelpxml.substring(fileNameOfHelpxml.length()-4, fileNameOfHelpxml.length());
+				
+			if(fileNameSplit.equalsIgnoreCase(".xml")){
+		
+		    //Figure_Help xml reader
+		    FileReader f2r = new FileReader(file2);
+		    BufferedReader b2r = new BufferedReader(f2r);
+		    
+		    //Figure_Help xml Writer
+		    String Dlocation = location+"Dup_"+file2.getName();
+		   // System.out.println("dddd " + Dlocation);
+		    File f3 = new File (Dlocation);//location+"/Figure_H1_Duplicate.xml"
+		    
+		    FileWriter f3w = new FileWriter (f3, true);
+		    BufferedWriter b3w = new BufferedWriter(f3w);
+		    
+		    //Replace Enter
+		    String z = b2r.readLine();
+		        while(z!=null){
+		        b3w.write(z.trim());
+		        z= b2r.readLine();       // System.out.println("null " + z);
+		    } 
+		        b3w.flush();
+		       
+		    
+		     FileReader f3r = new FileReader(f3);
+		     BufferedReader b3r = new BufferedReader(f3r);
+		     String z2 = b3r.readLine();
+		     //z2=(z2.replace("aa          ", "aa"));
+		     z2=(z2.replace("       ", " "));
+		     z2=(z2.replace("      ", " "));
+		     z2=(z2.replace("     ", " "));
+		     z2=(z2.replace("    ", " "));
+		     z2=(z2.replace("   ", " "));
+		     z2=(z2.replace("  ", " "));
+		     z2=(z2.replace("  ", " "));
+		     z2=(z2.replace("  ", " "));
+		     z2=(z2.replace("  ", " "));
+		     z2=(z2.replace("  ", " "));
+		     z2=(z2.replace("  ", " "));
+		     z2=(z2.replace("</cl:figure><cl:figure", "</cl:figure>  <cl:figure"));
+		     //System.out.println(z2);
+
+		      String z5[] = z2.trim().split("  ");
+		      //System.out.println("Current locatiion = " + location);
+		      //System.out.println("00000" + file2);
+		      //File file = new File(location);
+		      FileWriter f2w = new FileWriter (file2);
+		      //System.out.println(f2w);
+		      BufferedWriter b2w = new BufferedWriter(f2w);
+		     
+		      for(int i=0; i<z5.length; i++){
+		    	  b2w.write(z5[i]);
+		    	  b2w.newLine();
+		        }
+		      b2w.flush();
+		     b3w.close();
+		     b3r.close();
+		     boolean result = Files.deleteIfExists(f3.toPath());
+
+		     FileReader f5r = new FileReader(file2);
+             BufferedReader b5r = new BufferedReader(f5r);
+             String figureTag = b5r.readLine();//// Coppy line
+             
+             while(figureTag!=null){
+            	 String zz2[] = figureTag.trim().split("<cl:ordinal>");
+            	 String zz4[] = zz2[0].trim().split("<cl:label>");
+            	 String flabel = zz4[1];
+            	 
+                 String zz3[] = zz2[1].trim().split("</cl:ordinal>");
+                 String fOrdinal = zz3[0];
+       
+                 figureList.put(flabel+fOrdinal, figureTag);
+        
+                 figureTag = b5r.readLine();
+ 		    }
+ 		        
+             
+			}
+           	     
+		     
+	}
+	  
+	}
+	
+	public static void LogFiles (String logFileFolderPathh) throws IOException{
+		logFileFolderPath=logFileFolderPathh;
+		String log_FilesDirectory = logFileFolderPath+"Log_Files";
+    	//System.out.println("Directory created..........................");
+    	new File(log_FilesDirectory).mkdir();
+		
+		logFileFolderPath=logFileFolderPathh;
+		
+/*		logFile = new File (logFileFolderPath+"/Log_File.text");
+		FileWriter logFileWriter = new FileWriter (logFile);
+		logFileBWriter = new BufferedWriter(logFileWriter);
+*/		
+		
+		File repeatedLogFile = new File (logFileFolderPath+"/Log_Files/Repeated_xrefs_Log_File.text");
+		FileWriter repatelogFileWriter = new FileWriter (repeatedLogFile);
+		repatelogFileBWriter = new BufferedWriter(repatelogFileWriter);
+		
+		
+		File noFoundLogFile = new File (logFileFolderPath+"/Log_Files/Not_Found_xrefs_Log_File.text");
+	    FileWriter noFoundlogFileWriter = new FileWriter (noFoundLogFile);
+		noFoundlogFileBWriter = new BufferedWriter(noFoundlogFileWriter);
+		  
+	}
+	
+	public static void writeLogFileRepeated (String RepeatedlogDtat) throws IOException{
+		
+
+		
+		repatelogFileBWriter.write(RepeatedlogDtat);
+		repatelogFileBWriter.newLine();
+		repatelogFileBWriter.flush();
+		
+	}
+	
+public static void writeLogFileNoFound (String FileNoFoundlogDtat) throws IOException{
+	    
+		
+		noFoundlogFileBWriter.write(FileNoFoundlogDtat);
+		noFoundlogFileBWriter.newLine();
+		noFoundlogFileBWriter.flush();
+		
+	}
+    
     }

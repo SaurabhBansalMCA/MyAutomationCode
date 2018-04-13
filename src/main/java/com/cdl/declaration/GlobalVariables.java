@@ -120,7 +120,16 @@ public class GlobalVariables {
     public static Hashtable<String, String> csvData = new Hashtable<String, String>();
     public static Hashtable<String, String> REPLACES = new Hashtable<String, String>();
     public static List<String> PARAGRAPHS = new ArrayList<String>();
-    
+	public static Hashtable<String,String> figureList = new Hashtable<String,String>();
+
+	public static String logFileFolderPath; 
+	public static File logFile;
+	
+	public static BufferedWriter logFileBWriter;
+	public static BufferedWriter repatelogFileBWriter;
+	public static BufferedWriter noFoundlogFileBWriter;
+
+	
     public static FileInputStream FIS = null;
     public static FileOutputStream FOS = null;
     public static BufferedInputStream BIS = null;
