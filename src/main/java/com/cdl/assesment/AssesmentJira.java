@@ -90,7 +90,7 @@ public class AssesmentJira extends Utilities{
 		APPLICATION_LOG.debug("LOGGED IN JIRA");
 		
 		click(driver, PROP.getProperty("issues"));
-		driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
+		Thread.sleep(10000);
 		click(driver, PROP.getProperty("openissues"));
 		
 		APPLICATION_LOG.debug("CLICKED ON OPEN ISSUES");

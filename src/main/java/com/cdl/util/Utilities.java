@@ -880,7 +880,7 @@ public static List<String> readDocFile(String fileName) {
 			message.setFrom(new InternetAddress("saurabhbansal.mca@gmail.com"));
 
 			// recipients email address
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("saurabhbansal@qainfotech.com,saurabhbansal@qaicdl.in,devendrakumar@qaicdl.in,sachin.kumar@qaicdl.in"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("saurabhbansal@qainfotech.com,akhileshyadav@qaicdl.in,devendrakumar@qaicdl.in,sachin.kumar@qaicdl.in"));
 
 			// add the Subject of email
 			message.setSubject(sub);
