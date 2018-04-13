@@ -634,7 +634,7 @@ public static List<String> readDocFile(String fileName) {
 
 				Transformer transformer = TransformerFactory.newInstance().newTransformer();
 				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-				StreamResult result = new StreamResult(new File(XML_PATH));
+				StreamResult result = new StreamResult(new File(System.getProperty("user.dir")+"/src/main/resources/"+XML_PATH));
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
 				System.out.println("Entered in XML");
@@ -658,8 +658,8 @@ public static List<String> readDocFile(String fileName) {
 		if(xmlParse()){
 			//doc.getDocumentElement().normalize();
 			NodeList nList = doc.getElementsByTagName("project");
-			TBA.addRow("Project","|","Function Name","|","Argument Type");
-			TBA.addRow("-------","|","-------------","|","-------------");
+			TBA.addRow("Project","|","Function Name","|","Argument Type","|","Developed by","|","Description");
+			TBA.addRow("-------","|","-------------","|","-------------","|","---------------","|","------------------------");
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -668,7 +668,11 @@ public static List<String> readDocFile(String fileName) {
 								"|",
 								eElement.getElementsByTagName("functionname").item(0).getTextContent(),
 								"|",
-								eElement.getElementsByTagName("argumenttype").item(0).getTextContent());
+								eElement.getElementsByTagName("argumenttype").item(0).getTextContent(),
+								"|",
+								eElement.getElementsByTagName("developedby").item(0).getTextContent(),
+								"|",
+								eElement.getElementsByTagName("comment").item(0).getTextContent());
 					}
 				}
 			System.out.println(TBA.toString());
@@ -1088,7 +1092,7 @@ public static void readXMLFile(String fileName) throws Exception {
     writerNotFound = new BufferedWriter(new FileWriter(KeyTermFixer.logFileLocation.concat(KeyTermFixer.notFound), true));
     writerFixedTerms = new BufferedWriter(new FileWriter(KeyTermFixer.logFileLocation.concat(KeyTermFixer.fixedTerms), true));
     
-    Set<String> remove = new HashSet<>();
+    Set<String> remove = new HashSet<String>();
     File inputFile = new File(fileName);
     dBuilder = dbFactory.newDocumentBuilder();
     doc = dBuilder.parse(inputFile);
@@ -1098,7 +1102,7 @@ public static void readXMLFile(String fileName) throws Exception {
     for (int listItem = 0; listItem < list.getLength(); listItem++) {
         Node node = list.item(listItem);
         Element element = (Element) node;
-        Set<String> allKeys = new HashSet<>();
+        Set<String> allKeys = new HashSet<String>();
         allKeys.addAll(map.keySet());
         //String temp = element.getElementsByTagName("cl:key-term").item(0).getTextContent().toLowerCase();
         if(allKeys.contains(StringEscapeUtils.unescapeHtml4(element.getElementsByTagName("cl:key-term").item(0).getTextContent().toLowerCase()))) {
@@ -1167,7 +1171,7 @@ public static List<File> getFileName(String location) {
 public static void getKeytermList(String fileName) throws IOException {
     String line = null;
     BufferedReader reader = null;
-    map = new HashMap<>();
+    map = new HashMap<String,String>();
     map.clear();
     try {
         reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), Charset.forName("UTF-8")));

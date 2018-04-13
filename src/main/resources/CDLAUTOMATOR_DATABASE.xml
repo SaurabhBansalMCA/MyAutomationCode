@@ -45,5 +45,20 @@
 <date>18/01/2017</date>
 <developedby>Saurabh</developedby>
 </project>
+
+<project name="CENDOC">
+<functionname>com.cdl.geyser.KeyTermFixer</functionname>
+<argumenttype>XML Folder</argumenttype>
+<comment>It will fix the key terms definations</comment>
+<date>13/04/2018</date>
+<developedby>Sanjai</developedby>
+</project>
+<project name="CENDOC">
+<functionname>com.cdl.geyser.AssesstsPlacement</functionname>
+<argumenttype>XML Folder</argumenttype>
+<comment>It will placed the Figure &amp; Table at their first reference</comment>
+<date>13/04/2018</date>
+<developedby>Arun</developedby>
+</project>
 </projects>
 </cdlautomator>

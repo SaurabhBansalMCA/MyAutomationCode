@@ -2,8 +2,15 @@ package com.cdl.geyser;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
+import org.xml.sax.SAXException;
 
 import com.cdl.util.Utilities;
 
@@ -20,7 +27,9 @@ public class KeyTermFixer extends Utilities{
     public static String notFound = "/NotFound_Log.txt";
     public static String fixedTerms = "/FixedKeyTerms_Log.txt";
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException, IOException {
+    	xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will fix the key terms definations" , "13/04/2018", "Sanjai");
+
         System.out.println("Enter the path of Source XML folder.....");
         Scanner scan = new Scanner(System.in);
         xmlLocation = scan.nextLine().concat("/");        

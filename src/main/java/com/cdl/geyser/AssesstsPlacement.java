@@ -26,7 +26,7 @@ import com.cdl.util.Utilities;
 
 public class AssesstsPlacement  extends Utilities{
 	public static void main(String argv[]) throws IOException, TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException {
-    	xmlWrite("Any" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "null" , "13/04/2018", "Arun");
+    	xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will placed the Figure & Table at their first reference" , "13/04/2018", "Arun");
 		System.out.println("Please Enter Path of Source Chapters");
 		Scanner scan1= new Scanner(System.in);
 		String location1 = scan1.nextLine();//Chapter location
@@ -45,8 +45,8 @@ public class AssesstsPlacement  extends Utilities{
 			String newDirectory = currentDir+"/DuplicateXMLs";
 			new File(newDirectory).mkdir();
 			figHR(location2);
-			Set<String> allkeyss = new HashSet<>();
-			Set<String> remove = new HashSet<>();
+			Set<String> allkeyss = new HashSet<String>();
+			Set<String> remove = new HashSet<String>();
 			try {
 				String fileNameOgChapterXml = file.getName();
 				String fileNameSplit= fileNameOgChapterXml.substring(fileNameOgChapterXml.length()-4, fileNameOgChapterXml.length());
@@ -108,5 +108,6 @@ public class AssesstsPlacement  extends Utilities{
 			}
 		}
 		System.out.println("Figure Placement Done");
+		//windowCommandRunJira("exit");
 	}
 }
