@@ -43,6 +43,7 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class GlobalVariables {
     public static String ARGUMENT = "";
@@ -55,9 +56,14 @@ public class GlobalVariables {
         ARGUMENT = slash;
     }
 
+    public static BufferedWriter writerDuplicate = null;
+    public static BufferedWriter writerNotFound = null;
+    public static BufferedWriter writerFixedTerms = null;
+    public static HashMap<String, String> map;
+    
     public static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static Timer timer = new Timer();
-    public static final Logger APPLICATION_LOG = Logger.getLogger("devpinoyLogger");
+  //  public static final Logger APPLICATION_LOG = Logger.getLogger("devpinoyLogger");
     public static String link = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ05T5eGAV5XCRcyQNOvG2I2nrAB3HCsvSO1VpCDjazEOIP9wKyXJ0aShqphmqQ9DmoJ_NA8xRdqMze/pubhtml?gid=1923611235&single=true";
     public static ClassLoader classloader = Thread.currentThread().getContextClassLoader();
     public static final String PROJECT_PATH = System.getProperty("user.dir");

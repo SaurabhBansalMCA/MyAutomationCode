@@ -46,11 +46,11 @@
 <developedby>Saurabh</developedby>
 </project>
 <project name="Any">
-<functionname>com.cdl.commonscript.ContentExtractFromPdf</functionname>
-<argumenttype>PDF Folder</argumenttype>
+<functionname>com.cdl.geyser.AssesstsPlacement</functionname>
+<argumenttype>XML Folder</argumenttype>
 <comment>null</comment>
-<date>30/12/2016</date>
-<developedby>Saurabh</developedby>
+<date>13/04/2018</date>
+<developedby>Arun</developedby>
 </project>
 </projects>
 </cdlautomator>

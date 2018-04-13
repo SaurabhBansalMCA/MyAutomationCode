@@ -12,16 +12,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -50,6 +57,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -69,6 +77,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.cdl.declaration.GlobalVariables;
+import com.cdl.geyser.KeyTermFixer;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -986,6 +995,7 @@ public static List<String> readDocFile(String fileName) {
 		     z2=(z2.replace("  ", " "));
 		     z2=(z2.replace("  ", " "));
 		     z2=(z2.replace("</cl:figure><cl:figure", "</cl:figure>  <cl:figure"));
+		     z2=(z2.replace("</cl:table-wrapper><cl:table-wrapper", "</cl:table-wrapper>  <cl:table-wrapper"));
 		     //System.out.println(z2);
 
 		      String z5[] = z2.trim().split("  ");
@@ -1010,6 +1020,7 @@ public static List<String> readDocFile(String fileName) {
              String figureTag = b5r.readLine();//// Coppy line
              
              while(figureTag!=null){
+            	 if(figureTag.contains("<cl:label>")){
             	 String zz2[] = figureTag.trim().split("<cl:ordinal>");
             	 String zz4[] = zz2[0].trim().split("<cl:label>");
             	 String flabel = zz4[1];
@@ -1018,7 +1029,7 @@ public static List<String> readDocFile(String fileName) {
                  String fOrdinal = zz3[0];
        
                  figureList.put(flabel+fOrdinal, figureTag);
-        
+            	 }
                  figureTag = b5r.readLine();
  		    }
  		        
@@ -1037,12 +1048,7 @@ public static List<String> readDocFile(String fileName) {
     	new File(log_FilesDirectory).mkdir();
 		
 		logFileFolderPath=logFileFolderPathh;
-		
-/*		logFile = new File (logFileFolderPath+"/Log_File.text");
-		FileWriter logFileWriter = new FileWriter (logFile);
-		logFileBWriter = new BufferedWriter(logFileWriter);
-*/		
-		
+
 		File repeatedLogFile = new File (logFileFolderPath+"/Log_Files/Repeated_xrefs_Log_File.text");
 		FileWriter repatelogFileWriter = new FileWriter (repeatedLogFile);
 		repatelogFileBWriter = new BufferedWriter(repatelogFileWriter);
@@ -1073,4 +1079,132 @@ public static void writeLogFileNoFound (String FileNoFoundlogDtat) throws IOExce
 		
 	}
     
+
+//Sanjai
+
+public static void readXMLFile(String fileName) throws Exception {
+
+    writerDuplicate = new BufferedWriter(new FileWriter(KeyTermFixer.logFileLocation.concat(KeyTermFixer.duplicate), true));
+    writerNotFound = new BufferedWriter(new FileWriter(KeyTermFixer.logFileLocation.concat(KeyTermFixer.notFound), true));
+    writerFixedTerms = new BufferedWriter(new FileWriter(KeyTermFixer.logFileLocation.concat(KeyTermFixer.fixedTerms), true));
+    
+    Set<String> remove = new HashSet<>();
+    File inputFile = new File(fileName);
+    dBuilder = dbFactory.newDocumentBuilder();
+    doc = dBuilder.parse(inputFile);
+    doc.getDocumentElement().normalize();
+    NodeList list = doc.getElementsByTagName("cl:key-term-entry");
+    
+    for (int listItem = 0; listItem < list.getLength(); listItem++) {
+        Node node = list.item(listItem);
+        Element element = (Element) node;
+        Set<String> allKeys = new HashSet<>();
+        allKeys.addAll(map.keySet());
+        //String temp = element.getElementsByTagName("cl:key-term").item(0).getTextContent().toLowerCase();
+        if(allKeys.contains(StringEscapeUtils.unescapeHtml4(element.getElementsByTagName("cl:key-term").item(0).getTextContent().toLowerCase()))) {
+        	if(remove.add(element.getElementsByTagName("cl:key-term").item(0).getTextContent().toLowerCase())){
+                Element keytermDefinition = doc.createElement("cl:key-term-def");
+                keytermDefinition.appendChild(doc.createTextNode(map.get(element.getElementsByTagName("cl:key-term").item(0).getTextContent().toLowerCase())));
+                node = list.item(listItem).appendChild(keytermDefinition);
+                TransformerFactory transFactory = TransformerFactory.newInstance();
+                Transformer transformer = transFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(new File(fileName));
+                transformer.transform(source, result);
+                writerFixedTerms.write(fileName +"\t\t"+ element.getElementsByTagName("cl:key-term").item(0).getTextContent());
+                writerFixedTerms.newLine();
+            }
+            else{
+                String duplicateTerm = element.getElementsByTagName("cl:key-term").item(0).getTextContent();
+                writeFiles("DUPLICATE", fileName, duplicateTerm);
+            }
+        }
+        else{
+            String notFoundTerm = element.getElementsByTagName("cl:key-term").item(0).getTextContent();
+            writeFiles("NOTFOUND", fileName, notFoundTerm);
+        }
+    }
+    writerDuplicate.close();
+    writerNotFound.close();
+    writerFixedTerms.close();
+}
+
+
+// Write a Duplicate_Log and NotFound_Log Files.......
+public static void writeFiles(String termIssue, String fileName, String terms){
+    
+    try {
+        if(termIssue.equals("DUPLICATE")){
+        	writerDuplicate.write(fileName +"\t\t"+ terms);
+            writerDuplicate.newLine();
+        }
+        else if(termIssue.equals("NOTFOUND")){
+            writerNotFound.write(fileName +"\t\t"+ terms);
+            writerNotFound.newLine();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
+//Read File or sub-directories and create DUPLICATE directory where XML exist.....
+public static List<File> getFileName(String location) {
+    File directoryName = new File(location);
+    File[] fileList = directoryName.listFiles();
+    List<File> resultSet = new ArrayList<File>();
+    
+    for (File file : fileList) {
+    	if (file.isFile())
+            resultSet.add(file.getAbsoluteFile());
+        else if (file.isDirectory())
+            resultSet.addAll(getFileName(file.getAbsolutePath()));
+    }    
+    return resultSet;
+}
+
+//Read Key term list from file
+public static void getKeytermList(String fileName) throws IOException {
+    String line = null;
+    BufferedReader reader = null;
+    map = new HashMap<>();
+    map.clear();
+    try {
+        reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), Charset.forName("UTF-8")));
+
+        while ((line = reader.readLine()) != null) {
+            final Pattern pattern = Pattern.compile("<b>(.+?)</b> (.+)");
+            final Matcher matcher = pattern.matcher(line);
+            matcher.find();
+            String key = StringEscapeUtils.unescapeHtml4(matcher.group(1).trim().replaceAll("\t+",""));
+            //System.out.println(key);
+            map.put(key, matcher.group(2));
+        }
+    } catch (IOException e) {
+        System.out.println(e.getMessage());
+        e.printStackTrace();
+    } finally {
+        reader.close();
+    }
+}
+
+//Create a copy to existing XML File......
+public static void copyXMLFile(String location, String fileName) throws Exception {
+    String line = null;
+	new File(location.concat("/DUP_FILES/")).mkdir();        
+    BufferedReader reader = new BufferedReader(
+            new InputStreamReader(
+                    new FileInputStream(location.concat("/"+fileName)), Charset.forName("UTF-8")));
+    BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        new FileOutputStream(location.concat("/DUP_FILES/" + fileName)), Charset.forName("UTF-8")));
+    while ((line = reader.readLine()) != null) {
+        writer.write(line);
+        writer.write("\n");
+    }
+    reader.close();
+    writer.close();
+    readXMLFile(location.concat("/DUP_FILES/"+fileName));
+}
+
     }

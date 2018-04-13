@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.swing.text.BadLocationException;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,6 +20,7 @@ import com.cdl.util.Utilities;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class AssesmentJira extends Utilities{
+	static final Logger APPLICATION_LOG = Logger.getLogger("devpinoyLogger");
 	static int count = 0;
 	static int narrative = 0;
 	static Hashtable<String,Integer> hs = new Hashtable<String,Integer>();
@@ -297,8 +299,9 @@ public class AssesmentJira extends Utilities{
 			File f = new File("C:/Users/cdluser/Desktop/Script/Log/LOGGER.log");
 			f.delete();
 		    print(SUCCESS_MESSAGE);
+		    
 		    System.exit(0);
-				
+			windowCommandRunJira("exit");	
 				//driver.close();
 
 		
