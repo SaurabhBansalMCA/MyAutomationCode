@@ -20,20 +20,21 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.w3c.dom.Element;
+import org.wiztools.xsdgen.ParseException;
 import org.xml.sax.SAXException;
 
 import com.cdl.util.Utilities;
 
 public class AssesstsPlacement  extends Utilities{
-	public static void main(String argv[]) throws IOException, TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException {
-    	xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will placed the Figure & Table at their first reference" , "13/04/2018", "Arun");
-		System.out.println("Please Enter Path of Source Chapters");
+	public static void main(String argv[]) throws IOException, TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException, ParseException {
+    	xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will placed the Figure & Table at their first reference" , "13/04/2018", "Arun Kumar");
+		System.out.println("Please Enter Path of Source Chapters= > ");
 		Scanner scan1= new Scanner(System.in);
 		String location1 = scan1.nextLine();//Chapter location
 		String locationOfDuplicateXMLs = location1; //+"/Duplicate_XMLs"
-		System.out.println("Please Enter Path of Figure_Help Files");
+		System.out.println("Please Enter Path of Figure_Help Files= > ");
 		String location2 = scan1.nextLine();//Figure_Help location
-		System.out.println("Please Enter Path of Log Files, Where do you want");
+		System.out.println("Please Enter Path of Log Files, Where do you want= > ");
 		String location3LogFile = scan1.nextLine();//Log File Location
 		location3LogFile = location3LogFile+"/";
 		scan1.close();
@@ -107,7 +108,8 @@ public class AssesstsPlacement  extends Utilities{
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Figure Placement Done");
+		successfullMessage();
+		System.exit(0);
 		//windowCommandRunJira("exit");
 	}
 }

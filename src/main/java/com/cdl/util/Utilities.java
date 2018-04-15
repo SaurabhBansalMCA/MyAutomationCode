@@ -1,5 +1,6 @@
 package com.cdl.util;
 
+import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -13,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.text.DateFormat;
@@ -74,6 +77,8 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.wiztools.xsdgen.ParseException;
+import org.wiztools.xsdgen.XsdGen;
 import org.xml.sax.SAXException;
 
 import com.cdl.declaration.GlobalVariables;
@@ -407,7 +412,7 @@ public class Utilities extends GlobalVariables{
 				 	if (line == null) { break; }
 				 System.out.println(line);
 			 }
-			 System.out.println("Done");
+			// System.out.println("Done");
         }
 	
 	
@@ -585,7 +590,7 @@ public static List<String> readDocFile(String fileName) {
 		//return false;
 	}
 	
-	public static void xmlWrite(String projectName , String functionName , String argumentType , String comments , String dates , String developedBy) throws TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException, IOException{
+	public static void xmlWrite(String projectName , String functionName , String argumentType , String comments , String dates , String developedBy) throws TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException, IOException, ParseException{
 		int value = 1;
 		if(xmlParse()){
 			NodeList nList = doc.getElementsByTagName("functionname");			
@@ -593,7 +598,7 @@ public static List<String> readDocFile(String fileName) {
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 				Node nNode = nList.item(temp);
 				if(nNode.getTextContent().equalsIgnoreCase(functionName)){
-       	 			System.out.println("Already Recorded");
+       	 			//System.out.println("Already Recorded");
        	 			value = 0;
        	 		}
        	 		/*if(!nNode.getTextContent().equalsIgnoreCase(functionName)){
@@ -638,6 +643,9 @@ public static List<String> readDocFile(String fileName) {
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
 				System.out.println("Entered in XML");
+		//		createXSD(new File(System.getProperty("user.dir")+"/src/main/resources/"+XML_PATH));
+			//	writeText(fileName, data);
+				writeText(System.getProperty("user.dir")+"/src/main/resources/"+XSD_PATH, createXSD(new File(System.getProperty("user.dir")+"/src/main/resources/"+XML_PATH)));
 			}
 		}
 		else{
@@ -1211,4 +1219,14 @@ public static void copyXMLFile(String location, String fileName) throws Exceptio
     readXMLFile(location.concat("/DUP_FILES/"+fileName));
 }
 
+
+	public static void launchBrowser(String URL) throws IOException, URISyntaxException{
+		Desktop d=Desktop.getDesktop();
+		d.browse(new URI(URL));
+	}
+	
+	public static String createXSD(File FILE) throws IOException, ParseException{
+		return new XsdGen().parse(FILE).toString();
+		
+	}
     }

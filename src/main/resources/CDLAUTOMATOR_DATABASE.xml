@@ -1,64 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cdlautomator>
 <projects>
-
 <project name="Any">
-<functionname>com.cdl.script.unzipFolder</functionname>
+<functionname>com.cdl.commonscript.UnzipFolder</functionname>
 <argumenttype>Zipped Folder</argumenttype>
-<comment>null</comment>
+<comment>It will extract the zipped folder.</comment>
 <date>28/12/2016</date>
-<developedby>Saurabh</developedby>
+<developedby>Saurabh Bansal</developedby>
 </project>
 
 <project name="Assesment">
-<functionname>com.cdl.assesment.questionCount</functionname>
+<functionname>com.cdl.assesment.QuestionCount</functionname>
 <argumenttype>Docx Folder</argumenttype>
-<comment>null</comment>
+<comment>It will count the questions in the document.</comment>
 <date>30/12/2016</date>
-<developedby>Saurabh</developedby>
+<developedby>Saurabh Bansal</developedby>
 </project>
 <project name="Any">
-<functionname>com.cdl.script.DocToPdf</functionname>
+<functionname>com.cdl.commonscript.DocToPdf</functionname>
 <argumenttype>Doc Folder</argumenttype>
-<comment>null</comment>
+<comment>It will create the PDF of documents.	</comment>
 <date>28/12/2016</date>
-<developedby>Saurabh</developedby>
+<developedby>Saurabh Bansal</developedby>
 </project>
 <project name="CENDOC">
 <functionname>com.cdl.geyser.UniqueCGI</functionname>
 <argumenttype>XML Folder</argumenttype>
-<comment>null</comment>
+<comment>It will find the duplicate identifiers in XML.</comment>
 <date>28/12/2016</date>
-<developedby>Saurabh</developedby>
+<developedby>Saurabh Bansal</developedby>
 </project>
 <project name="Any">
-<functionname>com.cdl.script.ContentExtractFromPdf</functionname>
+<functionname>com.cdl.commonscript.ContentExtractFromPdf</functionname>
 <argumenttype>PDF Folder</argumenttype>
-<comment>null</comment>
+<comment>It will extract the content into XML form PDF.</comment>
 <date>30/12/2016</date>
-<developedby>Saurabh</developedby>
+<developedby>Saurabh Bansal</developedby>
 </project>
 <project name="Any">
-<functionname>com.cdl.script.unZipDocxDocument</functionname>
+<functionname>com.cdl.commonscript.UnZipDocxDocument</functionname>
 <argumenttype>Docx Folder</argumenttype>
-<comment>null</comment>
+<comment>It will extract the docx file into XML.</comment>
 <date>18/01/2017</date>
-<developedby>Saurabh</developedby>
+<developedby>Saurabh Bansal</developedby>
+</project>
+<project name="Any">
+<functionname>com.cdl.commonscript.CreateXSDFromXML</functionname>
+<argumenttype>XML Folder</argumenttype>
+<comment>It will generate the XSD or xml schema of any xml.</comment>
+<date>30/12/2016</date>
+<developedby>Saurabh Bansal</developedby>
 </project>
 
-<project name="CENDOC">
-<functionname>com.cdl.geyser.KeyTermFixer</functionname>
+<project name="Assesment">
+<functionname>com.cdl.assesment.FormattingXML</functionname>
 <argumenttype>XML Folder</argumenttype>
-<comment>It will fix the key terms definations</comment>
-<date>13/04/2018</date>
-<developedby>Sanjai</developedby>
+<comment>It will fix the italic-bold in xml.</comment>
+<date>17/01/2017</date>
+<developedby>Saurabh Bansal</developedby>
 </project>
 <project name="CENDOC">
 <functionname>com.cdl.geyser.AssesstsPlacement</functionname>
 <argumenttype>XML Folder</argumenttype>
-<comment>It will placed the Figure &amp; Table at their first reference</comment>
+<comment>It will placed the Figure &amp; Table at their first reference.</comment>
 <date>13/04/2018</date>
-<developedby>Arun</developedby>
+<developedby>Arun Kumar</developedby>
+</project>
+<project name="CENDOC">
+<functionname>com.cdl.geyser.KeyTermFixer</functionname>
+<argumenttype>XML Folder</argumenttype>
+<comment>It will fix the key terms definations.</comment>
+<date>13/04/2018</date>
+<developedby>Sanjai Singh</developedby>
+</project>
+
+<project name="Assesment">
+<functionname>com.cdl.assesment.ReplacesInXml</functionname>
+<argumenttype>XML Folder</argumenttype>
+<comment>It will apply the replaces in XML.</comment>
+<date>18/01/2017</date>
+<developedby>Saurabh Bansal</developedby>
 </project>
 </projects>
 </cdlautomator>

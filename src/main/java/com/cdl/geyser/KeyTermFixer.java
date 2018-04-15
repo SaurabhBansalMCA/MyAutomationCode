@@ -10,6 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import org.wiztools.xsdgen.ParseException;
 import org.xml.sax.SAXException;
 
 import com.cdl.util.Utilities;
@@ -27,15 +28,15 @@ public class KeyTermFixer extends Utilities{
     public static String notFound = "/NotFound_Log.txt";
     public static String fixedTerms = "/FixedKeyTerms_Log.txt";
     
-    public static void main(String[] args) throws TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException, IOException {
-    	xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will fix the key terms definations" , "13/04/2018", "Sanjai");
+    public static void main(String[] args) throws TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException, IOException, ParseException {
+    	xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will fix the key terms definations." , "13/04/2018", "Sanjai Singh");
 
-        System.out.println("Enter the path of Source XML folder.....");
+        print("Enter the path of Source XML folder= > ");
         Scanner scan = new Scanner(System.in);
         xmlLocation = scan.nextLine().concat("/");        
-        System.out.println("Enter the path of Help XML folder.....");
+        print("Enter the path of Help XML folder= > ");
         helpLocation = scan.nextLine().concat("/");
-        System.out.println("Enter the path of Log FILES folder.....");
+        print("Enter the path of Log FILES folder= > ");
         logFileLocation = scan.nextLine().concat("/LOG FILES");
         scan.close();
 
@@ -68,17 +69,13 @@ public class KeyTermFixer extends Utilities{
                 if(file.getName().endsWith(".xml"))
                     copyXMLFile(file.getParent(), file.getName());
                 else
-                	System.out.println("Find Different File Extension: "+file.getName());
+                	print("Find Different File Extension: "+file.getName());
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+        	print(e.getMessage());
             e.printStackTrace();
-        }finally{
-            System.out.println("************************************\n");
-            System.out.println("HURREYYYYYYY! Key Term has been Fixed....\n"
-                    + "Check the Fixed file in same Directory.....\n"
-                    + "Check the Duplicate and Miss terms in '.txt' files....");
-            System.out.println("\n************************************");
         }
+        successfullMessage();
+        System.exit(0);
     }
 }

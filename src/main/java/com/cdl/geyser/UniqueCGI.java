@@ -14,7 +14,7 @@ public class UniqueCGI extends Utilities{
 	static ArrayList<String> CGI = new ArrayList<String>();
 	static Set<String> unique = new HashSet<String>();
 		public static void main(String[] args) throws Exception {
-        xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "null" , "28/12/2016", "Saurabh");
+        xmlWrite("CENDOC" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will find the duplicate identifiers in XML." , "28/12/2016", "Saurabh Bansal");
 		System.out.println("Enter Path of XML Folder= > ");
 		INPUT_FOLDER_PATH = input.nextLine();
 		FILE_LIST = filesInDirectories(INPUT_FOLDER_PATH,".xml","Yes","No","All","Null","Null");
@@ -47,5 +47,6 @@ public class UniqueCGI extends Utilities{
 		    	  unique.clear();
 		      }
 		successfullMessage();
+		System.exit(0);
 		}
 	}

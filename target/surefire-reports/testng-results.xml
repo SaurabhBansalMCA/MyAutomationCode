@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="0" passed="0">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="com.cdl.automator.AppTest" duration-ms="16" started-at="2018-04-13T12:48:34Z" finished-at="2018-04-13T12:48:34Z">
+  <suite name="com.cdl.automator.XMLValidatorTest" duration-ms="90" started-at="2018-04-15T02:57:37Z" finished-at="2018-04-15T02:57:37Z">
     <groups>
     </groups>
-    <test name="Command line test" duration-ms="16" started-at="2018-04-13T12:48:34Z" finished-at="2018-04-13T12:48:34Z">
+    <test name="Command line test" duration-ms="90" started-at="2018-04-15T02:57:37Z" finished-at="2018-04-15T02:57:37Z">
+      <class name="com.cdl.automator.XMLValidatorTest">
+        <test-method status="PASS" signature="test()[pri:0, instance:com.cdl.automator.XMLValidatorTest@13deb50e]" name="test" duration-ms="73" started-at="2018-04-15T08:27:37Z" finished-at="2018-04-15T08:27:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+      </class> <!-- com.cdl.automator.XMLValidatorTest -->
     </test> <!-- Command line test -->
-  </suite> <!-- com.cdl.automator.AppTest -->
+  </suite> <!-- com.cdl.automator.XMLValidatorTest -->
 </testng-results>

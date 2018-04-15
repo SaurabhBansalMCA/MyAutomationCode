@@ -25,5 +25,6 @@ public class Home extends Utilities {
 			System.out.println("\n");
 			System.out.println("https://docs.google.com/spreadsheets/d/e/2PACX-1vQutHZ9PFzViG09bNA4xcjBDOJzMZNqMJ3l3A9pZUBy81-SA6XDE835BW3lmn5jwCmP09KZGVS5Nv7B/pubhtml?gid=0&single=true");
 			}
+		System.exit(0);
 		}
 }
