@@ -13,8 +13,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.cdl.util.Utilities;
 import com.google.api.services.sheets.v4.model.ValueRange;
@@ -37,6 +36,7 @@ public class AssesmentJira extends Utilities{
     	csvData = CSV_Reader(CSV_PATH, ",",csv_is);
       	Set<String> keys = csvData.keySet();
       	//INPUT_FOLDER_PATH = "C:/Users/cdluser/Desktop/Script/Tickets/"+todayDate()+"/";
+      //	windowCommandRunJira("Net Use \\192.168.100.7"+"\\"+"ebsco"+"\\"+"Assessment"+"\\"+"Data qainfotech /user:ebsco");
       	INPUT_FOLDER_PATH = "\\"+"\\192.168.100.7\\ebsco\\Assessment\\Data\\"+todayDate()+"\\";
       	FILE = new File(INPUT_FOLDER_PATH);
       	
@@ -71,18 +71,19 @@ public class AssesmentJira extends Utilities{
 		APPLICATION_LOG.debug("**************************************");
 		
 		Thread.sleep(20000);
-		System.setProperty("webdriver.gecko.driver","C:/Users/cdluser/Desktop/Script/"+GECKODRIVER_PATH);
+		System.setProperty("webdriver.chrome.driver","C:/Users/cdluser/Desktop/Script/"+GECKODRIVER_PATH);
 		propertyFile();
 		
 		APPLICATION_LOG.debug("Launching the browser");
 		
-		FirefoxOptions options = new FirefoxOptions();
-		options.setHeadless(true);
-		WebDriver driver = new FirefoxDriver(options);
+/*		FirefoxOptions options = new FirefoxOptions();
+		options.setHeadless(true);*/
+	
+		WebDriver driver = new ChromeDriver();
 		driver.get(PROP.getProperty("url"));
 		
 		APPLICATION_LOG.debug("Browser Launched");
-
+		driver.manage().window().maximize();
 		sendText(driver, PROP.getProperty("userName"),PROP.getProperty("name"));
 		sendText(driver, PROP.getProperty("password"),PROP.getProperty("pwd"));
 		click(driver, PROP.getProperty("login"));
@@ -91,9 +92,9 @@ public class AssesmentJira extends Utilities{
 		
 		APPLICATION_LOG.debug("***********************************************");
 		APPLICATION_LOG.debug("LOGGED IN JIRA");
-		
+		Thread.sleep(20000);
 		click(driver, PROP.getProperty("issues"));
-		Thread.sleep(10000);
+		Thread.sleep(20000);
 		click(driver, PROP.getProperty("openissues"));
 		
 		APPLICATION_LOG.debug("CLICKED ON OPEN ISSUES");
@@ -153,12 +154,15 @@ public class AssesmentJira extends Utilities{
 		APPLICATION_LOG.debug("***************************************************");
 		APPLICATION_LOG.debug("Downloading Started");
 		APPLICATION_LOG.debug("***********************************************");
-		
+		if(downloadLink.length()==0) {
+			APPLICATION_LOG.debug("There is no ticket to download");
+			//System.exit(0);
+		}
 		for(String key : ticketDownload.keySet()){
-			//APPLICATION_LOG.debug("s = " + key);
+			APPLICATION_LOG.debug("s = " + key);
 
 		        if(!values.toString().contains(key) && key.startsWith("DIG")){
-		        	//APPLICATION_LOG.debug("Key " + key);
+		        	APPLICATION_LOG.debug("Key " + key);
 		        	windowCommandRunJira("wget -O "+ INPUT_FOLDER_PATH + key+".zip --no-check-certificate "+ticketDownload.get(key)+"");
 		        	APPLICATION_LOG.debug(key + " has been downloaded");
 		        }
@@ -172,7 +176,7 @@ public class AssesmentJira extends Utilities{
 		FILE_LIST = null;
 		FILE_LIST = filesInDirectories(INPUT_FOLDER_PATH,".zip,.7z","Yes","No","All","NULL","NULL");
 		if(FILE_LIST.get(0).size()==0)
-					System.out.println("There is no zip file");
+			APPLICATION_LOG.debug("There is no zip file");
 				else{
 					for(int i = 0 ; i < FILE_LIST.get(0).size() ; i++){
 						extractFolder(FILE_LIST.get(0).get(i));
@@ -193,7 +197,7 @@ public class AssesmentJira extends Utilities{
 				ALL_FILE_NAMES.clear();
 				FILE_LIST = filesInDirectories(INPUT_FOLDER_PATH,".docx,.doc","Yes","No","All","NULL","NULL");
 				if(FILE_LIST.get(0).size()==0)
-					System.out.println("There is no docx file");
+					APPLICATION_LOG.debug("There is no docx file");
 				else{
 					for(int i = 0 ; i < FILE_LIST.get(0).size() ; i++){
 						folderName = FILE_LIST.get(4).get(i);
@@ -299,9 +303,9 @@ public class AssesmentJira extends Utilities{
 			File f = new File("C:/Users/cdluser/Desktop/Script/Log/LOGGER.log");
 			f.delete();
 		    print(SUCCESS_MESSAGE);
-		    
+		    windowCommandRunJira("exit");
 		    System.exit(0);
-			windowCommandRunJira("exit");	
+				
 				//driver.close();
 
 		

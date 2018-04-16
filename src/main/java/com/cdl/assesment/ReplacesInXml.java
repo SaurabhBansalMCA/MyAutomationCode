@@ -29,10 +29,10 @@ public class ReplacesInXml extends Utilities{
 	public static void main(String[] args) throws TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException, IOException, ParseException{
     	xmlWrite("Assesment" , Thread.currentThread().getStackTrace()[1].getClassName(), "XML Folder" , "It will apply the replaces in XML." , "18/01/2017", "Saurabh Bansal");
     	//hs.clear();
-    	csvData.clear();
-    	csvData = CSV_Reader(CSV_REP_PATH,",",csv_rep_is);
-    	Set<String> find = csvData.keySet();
-    	System.out.println(csvData.size());
+    	//csvData.clear();
+    	//csvData = CSV_Reader(CSV_REP_PATH,",",csv_rep_is);
+    //	Set<String> find = csvData.keySet();
+    //	System.out.println(csvData.size());
     	print("Enter Path of XML Folder= > ");
 		INPUT_FOLDER_PATH = input.nextLine();
 		//filesInDirectories(directoryPath, requiredFileExtension, recursive, ignoureFileExtension, onlydDirectoryPathOrAllFiles, placeHolder1, placeHolder2)
@@ -47,11 +47,12 @@ public class ReplacesInXml extends Utilities{
 	        
 	        while((line = BR.readLine()) != null)
 	            {
-	            oldText += line + "\r\n";
+	            oldText += line;
 	        }
 	        BR.close();
-	        System.out.println(find.size());
-	       for(String findKey: find){
+	        System.out.println(oldText);
+	       // System.out.println(find.size());
+	   /*    for(String findKey: find){
 	        	System.out.println("Match Find  = " + findKey);
 		
 	        String replaceString = csvData.get(findKey);
@@ -61,7 +62,7 @@ public class ReplacesInXml extends Utilities{
 
 	        oldText = matcher.replaceAll(replaceString);
 		}
-	       
+	*/       
 
 	      FW= new FileWriter("C:\\Users\\cdladmin\\Desktop\\g\\geyserOutput.xml");
 	        FW.write(oldText);

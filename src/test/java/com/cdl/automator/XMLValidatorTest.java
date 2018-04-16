@@ -21,12 +21,12 @@ public class XMLValidatorTest extends Utilities{
     @Test
     public static void test() {
     XMLValidatorTest XMLValidator = new XMLValidatorTest();
-    boolean valid = XMLValidator.validate(XML_FILE, SCHEMA_FILE);
+    XMLValidator.validate(XML_FILE, SCHEMA_FILE);
         
-        if(valid)
+     /*   if(valid)
         	System.out.printf("XML IS VALID");
         if(!valid)
-        	System.out.println("XML IS INVALID");
+        	System.out.println("XML IS INVALID");*/
     }
 
     private boolean validate(String xmlFile, String schemaFile) {

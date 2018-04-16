@@ -30,7 +30,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -72,8 +71,9 @@ public class GlobalVariables {
     public static final String CSV_PATH = "Assesment Handler - Handler.csv";
     public static final String CSV_REP_PATH = "Assesment_Replaces - Data.csv";
     public static final String PROPERTYFILE_PATH = "input.properties";
+    public static final String ORPROPERTYFILE_PATH = "or.properties";
     public static final String OFFICETOPDF_PATH = "OfficeToPDF.exe";
-    public static String GECKODRIVER_PATH = "geckodriver.exe";
+    public static String GECKODRIVER_PATH = "chromedriver.exe";
     public static final String RANGE = "TicketsInPipeline!A:B";
     public static InputStream xml_is = classloader.getResourceAsStream(XML_PATH);
     public static InputStream gecko_is = classloader.getResourceAsStream(GECKODRIVER_PATH);
@@ -81,6 +81,8 @@ public class GlobalVariables {
     public static InputStream csv_is = classloader.getResourceAsStream(CSV_PATH);
     public static InputStream csv_rep_is = classloader.getResourceAsStream(CSV_REP_PATH);
     public static InputStream prop_is = classloader.getResourceAsStream(PROPERTYFILE_PATH);
+    public static InputStream orprop_is = classloader.getResourceAsStream(ORPROPERTYFILE_PATH);
+
     
     public static final String SUCCESS_MESSAGE = "SCRIPT HAS BEEN EXECUTED SUCCESSFULLY";
     public static final String SUCCESS_FOLDER_CREATION = "Directory is created SUCCESSFULLY";
@@ -97,6 +99,7 @@ public class GlobalVariables {
     public static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     public static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS);
     public static final Properties PROP = new Properties();
+    public static final Properties ORPROP = new Properties();
 
     public static TableBuilderA TBA = new TableBuilderA();
     public static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

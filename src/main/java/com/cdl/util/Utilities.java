@@ -707,6 +707,7 @@ public static List<String> readDocFile(String fileName) {
     }
 	
 	public static void propertyFile() throws IOException{
+		ORPROP.load(orprop_is);
 		PROP.load(prop_is);
 		}
 	
@@ -750,7 +751,7 @@ public static List<String> readDocFile(String fileName) {
     	String range = "A"+rowStart+":Z";
     	response.setRange(range); // I NEED THE NUMBER OF THE LAST ROW
     	response.setValues(getData(date,docName,questionType,questionCount));
-    	List<ValueRange> oList = new ArrayList();
+    	List<ValueRange> oList = new ArrayList<ValueRange>();
     	oList.add(response);
     	BatchUpdateValuesRequest oRequest = new BatchUpdateValuesRequest().setValueInputOption("RAW").setData(oList);
     	BatchUpdateValuesResponse oResp1sd = service.spreadsheets().values().batchUpdate(spreadsheetId, oRequest).execute();
@@ -823,7 +824,7 @@ public static List<String> readDocFile(String fileName) {
                }
     		zis.closeEntry();
     		zis.close();
-    		System.out.println("Done");
+    		//System.out.println("Done");
     	}catch(IOException ex){
     		ex.printStackTrace();
     		}

@@ -16,6 +16,7 @@
 <date>30/12/2016</date>
 <developedby>Saurabh Bansal</developedby>
 </project>
+
 <project name="Any">
 <functionname>com.cdl.commonscript.DocToPdf</functionname>
 <argumenttype>Doc Folder</argumenttype>
@@ -23,6 +24,7 @@
 <date>28/12/2016</date>
 <developedby>Saurabh Bansal</developedby>
 </project>
+
 <project name="CENDOC">
 <functionname>com.cdl.geyser.UniqueCGI</functionname>
 <argumenttype>XML Folder</argumenttype>
@@ -30,6 +32,7 @@
 <date>28/12/2016</date>
 <developedby>Saurabh Bansal</developedby>
 </project>
+
 <project name="Any">
 <functionname>com.cdl.commonscript.ContentExtractFromPdf</functionname>
 <argumenttype>PDF Folder</argumenttype>
@@ -37,6 +40,7 @@
 <date>30/12/2016</date>
 <developedby>Saurabh Bansal</developedby>
 </project>
+
 <project name="Any">
 <functionname>com.cdl.commonscript.UnZipDocxDocument</functionname>
 <argumenttype>Docx Folder</argumenttype>
@@ -44,6 +48,7 @@
 <date>18/01/2017</date>
 <developedby>Saurabh Bansal</developedby>
 </project>
+
 <project name="Any">
 <functionname>com.cdl.commonscript.CreateXSDFromXML</functionname>
 <argumenttype>XML Folder</argumenttype>
@@ -59,6 +64,7 @@
 <date>17/01/2017</date>
 <developedby>Saurabh Bansal</developedby>
 </project>
+
 <project name="CENDOC">
 <functionname>com.cdl.geyser.AssesstsPlacement</functionname>
 <argumenttype>XML Folder</argumenttype>
@@ -66,6 +72,7 @@
 <date>13/04/2018</date>
 <developedby>Arun Kumar</developedby>
 </project>
+
 <project name="CENDOC">
 <functionname>com.cdl.geyser.KeyTermFixer</functionname>
 <argumenttype>XML Folder</argumenttype>
@@ -81,5 +88,14 @@
 <date>18/01/2017</date>
 <developedby>Saurabh Bansal</developedby>
 </project>
+
+<project name="CENDOC">
+<functionname>com.cdl.geyser.T2Image</functionname>
+<argumenttype>Image Folder</argumenttype>
+<comment>It will create the T-2 image of any T-3 image.</comment>
+<date>15/04/2018</date>
+<developedby>Arun Kumar</developedby>
+</project>
+
 </projects>
 </cdlautomator>
