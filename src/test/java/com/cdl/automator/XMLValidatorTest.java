@@ -1,18 +1,21 @@
 package com.cdl.automator;
-import org.testng.annotations.Test;
-import org.xml.sax.SAXException;
 
-import com.cdl.util.Utilities;
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+
+import org.testng.annotations.Test;
+import org.xml.sax.SAXException;
+
+import com.cdl.util.Utilities;
 
 public class XMLValidatorTest extends Utilities{
     public static final String SCHEMA_FILE = XSD_PATH;
